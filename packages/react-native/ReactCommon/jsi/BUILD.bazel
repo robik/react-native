@@ -1,0 +1,14 @@
+load("//ReactCommon:variables.bzl", "COPTS")
+
+cc_shared_library(
+    name = "jsi",
+    copts = COPTS + [
+        "-Wno-non-virtual-dtor"
+    ],
+    srcs = glob(["jsi/*.cpp"]),
+    hdrs = ["jsi/jsi.h"],
+    deps = [
+        "@glog",
+        "@folly_runtime"
+    ]
+)

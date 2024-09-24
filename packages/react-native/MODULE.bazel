@@ -1,0 +1,13 @@
+module(
+    name = "react-native",
+    version = "0.77.0",
+    compatibility_level = 1,
+)
+
+# Basic
+bazel_dep(name = "bazel_features", version = "1.75.0")
+bazel_dep(name = "bazel_skylib", version = "1.7.1")
+bazel_dep(name = "platforms", version = "0.0.10")
+
+# Rules
+bazel_dep(name = "rules_cc", version = "0.0.10")

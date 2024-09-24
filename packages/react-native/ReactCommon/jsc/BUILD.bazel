@@ -1,0 +1,13 @@
+load("//ReactCommon:variables.bzl", "COPTS")
+
+cc_library(
+    name = "jscruntime",
+    srcs = ["JSCRuntime.cpp"],
+    copts = COTPS,
+    hdrs = [""],
+    deps = [
+        "//ReactCommon/jsc",
+        "//ReactCommon/jsi",
+        "//ReactCommon/reactnative",
+    ]
+)

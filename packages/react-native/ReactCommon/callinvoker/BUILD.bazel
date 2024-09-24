@@ -1,0 +1,7 @@
+load("//ReactCommon:variables.bzl", "COPTS")
+
+cc_library(
+    name = "callinvoker",
+    hdrs = glob(["ReactCommon/*.h"]),
+    copts = COPTS
+)
