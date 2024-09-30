@@ -1,0 +1,14 @@
+load("//ReactCommon:variables.bzl", "COPTS")
+
+cc_library(
+    name = "jserrorhandler",
+    srcs = glob(["*.cpp"]),
+    copts = COTPS,
+    hdrs = glob(["*.h"]),
+    deps = [
+        "//ReactCommon/jsi",
+        "@folly_runtime",
+        "@mapbufferjni",
+    ],
+    visibility = ["//visibility:public"],
+)

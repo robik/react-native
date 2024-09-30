@@ -1,9 +1,13 @@
 load("//:variables.bzl", "COPTS")
 
 cc_library(
-    name = "callinvoker",
+    name = "runtimeexecutor",
+    srcs = glob(["ReactCommon/*.h"]),
     hdrs = glob(["ReactCommon/*.h"]),
     copts = COPTS,
-    includes = ["."],
+    deps = [
+        "//ReactCommon/jsi"
+    ],
     visibility = ["//visibility:public"],
+    includes = ["."]
 )

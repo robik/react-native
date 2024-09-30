@@ -1,0 +1,27 @@
+load("//:variables.bzl", "COPTS")
+
+config_setting(
+    name = "is_debug",
+    values = {
+        "compilation_mode": "dbg"
+    }
+)
+
+cc_library(
+    name = "hermes_executor_common",
+    copts = COPTS + [
+        "-I.",
+        "-std=c++20"
+    ],
+    srcs = glob(["*.cpp", "*.h"]),
+    hdrs = glob(["*.h"]),
+    deps = [
+        "//ReactCommon/jsi"
+    ],
+    defines = select({
+        ":is_debug": ["HERMES_ENABLE_DEBUGGER=1"],
+        "//conditions:default": ["NDEBUG"]
+    })
+    includes = ["."],    
+    visibility = ["//visibility:public"],
+)

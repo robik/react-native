@@ -1,0 +1,13 @@
+load("//:variables.bzl", "COPTS")
+
+cc_library(
+    name = "reactperflogger",
+    srcs = glob(["reactperflogger/*.cpp", "fusebox/*.cpp"]),
+    hdrs = glob(["reactperflogger/*.h", "fusebox/*.h"]),
+    copts = COPTS,
+    deps = [
+        "@folly"
+    ],
+    includes = ["."],
+    visibility = ["//visibility:public"],
+)

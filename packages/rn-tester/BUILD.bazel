@@ -1,0 +1,60 @@
+load(
+    "@rules_xcodeproj//xcodeproj:defs.bzl",
+    "top_level_target",
+    "xcodeproj",
+)
+
+load(
+  "@rules_apple//apple:apple.bzl",
+  "local_provisioning_profile",
+  "experimental_mixed_language_library",
+)
+
+load(
+  "@rules_apple//apple:ios.bzl",
+  "ios_application",
+  "ios_unit_test",
+)
+
+local_provisioning_profile(
+    name = "local_profile"
+)
+
+# xcode_provisioning_profile(
+#    name = "xcode_profile",
+#    managed_by_xcode = True,
+#    provisioning_profile = ":local_profile",
+# )
+
+xcodeproj(
+    name = "xcodeproj",
+    project_name = "rn-tester",
+    tags = ["manual"],
+    top_level_targets = [
+        top_level_target(":app", target_environments = ["simulator", "device"])
+    ],
+)
+
+experimental_mixed_language_library(
+    name = "srcs",
+    srcs = glob([
+        "RNTester/**/*.m",
+        "RNTester/**/*.mm",
+        "RNTester/**/*.h",
+        "RNTester/**/*.swift",
+    ]),
+    deps = ["@react-native"]
+)
+
+ios_application(
+    name = "app",
+    bundle_id = "com.example.app",
+    families = ["iphone", "ipad"],
+    resources = glob(["RNTester/Images.xcassets", "RNTester/RNTesterBundle/OtherImages.xcassets/**"]),
+    app_icons = glob(["RNTester/Images.xcassets/AppIcon.appiconset/*"]),
+    minimum_os_version = "15.0",
+    infoplists = ["RNTester/Info.plist"],
+    visibility = ["//visibility:public"],
+    deps = [":srcs"],
+    provisioning_profile = ":local_profile"
+)

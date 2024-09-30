@@ -1,0 +1,20 @@
+load("//:variables.bzl", "COPTS")
+
+cc_library(
+    name = "cxxreact",
+    srcs = glob(["*.cpp"]),
+    hdrs = glob(["*.h"]),
+    copts = COPTS,
+    deps = [
+        "@folly",
+        "//ReactCommon/callinvoker",
+        "//ReactCommon/jsi",
+        "//ReactCommon/jsinspector-modern",
+        "//ReactCommon/logger",
+        "//ReactCommon/reactperflogger",
+        "//ReactCommon/runtimeexecutor",
+        "//ReactCommon:react-timing",
+        "//ReactCommon:react-debug",
+    ],
+    visibility = ["//visibility:public"],
+)

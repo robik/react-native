@@ -1,0 +1,20 @@
+load("//:variables.bzl", "COPTS")
+
+cc_library(
+    name = "hermes_executor_common",
+    copts = COPTS + [
+        "-I.",
+        "-std=c++20"
+    ],
+    srcs = glob(["*.cpp", "*.h"]),
+    hdrs = glob(["executor/*.h"]),
+    deps = [
+        "@folly",
+        "//ReactCommon/cxxreact",
+        "//ReactCommon/jsi",
+        "//ReactCommon/jsinspector",
+        "//ReactCommon/runtimeexecutor",
+    ],
+    includes = ["."],    
+    visibility = ["//visibility:public"],
+)

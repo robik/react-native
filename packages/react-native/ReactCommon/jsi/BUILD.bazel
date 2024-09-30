@@ -1,14 +1,24 @@
-load("//ReactCommon:variables.bzl", "COPTS")
+load("//:variables.bzl", "COPTS")
 
-cc_shared_library(
+cc_library(
     name = "jsi",
     copts = COPTS + [
-        "-Wno-non-virtual-dtor"
+        "-Wno-non-virtual-dtor",
+        "-I.",
+        "-std=c++20"
     ],
-    srcs = glob(["jsi/*.cpp"]),
-    hdrs = ["jsi/jsi.h"],
+    srcs = glob(
+        include = ["jsi/*.cpp", "jsi/*.h"],
+        exclude = [
+            "jsi/jsilib-posix.cpp",
+            "jsi/jsilib-windows.cpp",
+            "**/test/*"
+        ]
+    ),
+    hdrs = glob(["jsi/*.h"]),
     deps = [
-        "@glog",
-        "@folly_runtime"
-    ]
+        "@folly"
+    ],
+    includes = ["."],
+    visibility = ["//visibility:public"]
 )

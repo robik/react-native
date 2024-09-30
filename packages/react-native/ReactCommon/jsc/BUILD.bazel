@@ -1,13 +1,24 @@
 load("//ReactCommon:variables.bzl", "COPTS")
 
+config_setting(
+    name = "is_msvc_like",
+    values = {
+        "@bazel_tools//tools/cpp:cc_compiler": ["clang-cl", "msvc"]
+    }
+)
+
 cc_library(
     name = "jscruntime",
     srcs = ["JSCRuntime.cpp"],
-    copts = COTPS,
+    copts = COTPS + select({
+        ":is_msvc_like": ["/EHsc"],
+        "//conditions:default": ["-Wno-non-virtual-dtor"]
+    }),
     hdrs = [""],
     deps = [
         "//ReactCommon/jsc",
         "//ReactCommon/jsi",
         "//ReactCommon/reactnative",
-    ]
+    ],
+    visibility = ["//visibility:public"],
 )

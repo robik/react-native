@@ -1,0 +1,70 @@
+load("//:variables.bzl", "COPTS")
+
+cc_library(
+    name = "base",
+    includes = ["."]
+)
+
+cc_library(
+    name = "react-timing",
+    copts = COPTS,
+    srcs = glob(["react/timing/*.cpp", "react/timing/*.h"]),
+    hdrs = glob(["react/timing/*.h"]),
+    deps = [":base"],
+    visibility = ["//visibility:public"],
+)
+
+cc_library(
+    name = "react-debug",
+    copts = COPTS,
+    srcs = glob(["react/debug/*.cpp", "react/debug/*.h"]),
+    hdrs = glob(["react/debug/*.h"]),
+    deps = [":base"],
+    visibility = ["//visibility:public"],
+)
+
+cc_library(
+    name = "react-featureflags",
+    copts = COPTS + [
+        "-I."
+    ],
+    srcs = glob(["react/featureflags/*.cpp", "react/featureflags/*.h"]),
+    hdrs = glob(["react/featureflags/*.h"]),
+    deps = [":base"],
+    visibility = ["//visibility:public"],
+)
+
+cc_library(
+    name = "react-performancetimeline",
+    srcs = glob(["react/performance/timeline/*.cpp", "react/performance/timeline/*.h"]),
+    copts = COPTS,
+    deps = [
+        ":react-timing",
+        "//ReactCommon/cxxreact"
+    ],
+    visibility = ["//visibility:public"]
+)
+
+cc_test(
+    name = "react-performancetimeline-test",
+    size = "small",
+    copts = COPTS,
+    srcs = glob(["react/performance/timeline/tests/*.cpp", "react/performance/timeline/*.h"]),
+    deps = [
+        ":react-performancetimeline",
+        "@googletest//:gtest",
+        "@googletest//:gtest_main",
+    ],
+)
+
+cc_library(
+    name = "ReactCommon",
+    deps = [
+        "//ReactCommon/cxxreact",
+        "//ReactCommon/jsi",
+        ":react-timing",
+        ":react-debug",
+        ":react-featureflags",
+    ],
+    visibility = ["//visibility:public"],
+)

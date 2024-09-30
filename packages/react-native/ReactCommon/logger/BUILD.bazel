@@ -1,0 +1,12 @@
+load("//:variables.bzl", "COPTS")
+
+cc_library(
+    name = "logger",
+    srcs = glob(["*.cpp"]),
+    hdrs = glob(["*.h"]),
+    copts = COPTS,
+    deps = [
+        "@glog"
+    ],
+    visibility = ["//visibility:public"],
+)

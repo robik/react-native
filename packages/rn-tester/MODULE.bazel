@@ -1,0 +1,27 @@
+module(
+    name = "rn-tester",
+    version = "0.77.0",
+    compatibility_level = 1,
+)
+
+# Basic
+bazel_dep(name = "bazel_skylib", version = "1.7.1")
+bazel_dep(name = "platforms", version = "0.0.10")
+
+# Apple
+bazel_dep(name = "rules_apple", version = "3.9.2")
+bazel_dep(name = "rules_xcodeproj", version = "2.7.0")
+
+# Android
+# bazel_dep(name = "rules_android", version = "0.5.1")
+
+# Rules
+bazel_dep(name = "rules_cc", version = "0.0.10")
+bazel_dep(name = "rules_foreign_cc", version = "0.12.0")
+
+bazel_dep(name = "react-native", version = "")
+
+local_path_override(
+    module_name = "react-native",
+    path = "../react-native",
+)

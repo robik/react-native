@@ -1,0 +1,16 @@
+load("//:variables.bzl", "COPTS")
+
+cc_library(
+    name = "jsinspector-modern",
+    srcs = glob(["*.cpp"]),
+    textual_hdrs = glob(["*.def"]),
+    hdrs = glob(["*.h"]),
+    copts = COPTS,
+    deps = [
+        "@folly",
+        "//ReactCommon:react-featureflags",
+        "//ReactCommon/runtimeexecutor",
+        "//ReactCommon/reactperflogger",
+    ],
+    visibility = ["//visibility:public"],
+)

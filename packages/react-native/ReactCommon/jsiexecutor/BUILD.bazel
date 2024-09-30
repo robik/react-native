@@ -1,0 +1,16 @@
+load("//:variables.bzl", "COPTS")
+
+cc_library(
+    name = "jsiexecutor",
+    srcs = glob(["jsireact/*.cpp"]),
+    hdrs = glob(["jsireact/*.h"]),
+    copts = COPTS,
+    deps = [
+        "@glog",
+        "@folly",
+        "//ReactCommon/jsi",
+        "//ReactCommon/cxxreact",
+        "//ReactCommon/reactperflogger",
+    ],
+    visibility = ["//visibility:public"],
+)
